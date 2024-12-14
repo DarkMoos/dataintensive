@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+    mongo1:
+        ports:
+            - 27017:27017
+        container_name: mongo1
+        networks:
+            - mongoCluster
+        image: mongo:latest
+        command: mongod --replSet myReplicaSet --bind_ip localhost,mongo1
+    mongo2:
+        ports:
+            - 27018:27017
+        container_name: mongo2
+        networks:
+            - mongoCluster
+        image: mongo:latest
+        command: mongod --replSet myReplicaSet --bind_ip localhost,mongo2
+    mongo3:
+        ports:
+            - 27019:27017
+        container_name: mongo3
+        networks:
+            - mongoCluster
+        image: mongo:latest
+        command: mongod --replSet myReplicaSet --bind_ip localhost,mongo3
+
+networks:
+  mongoCluster:
+    driver: bridge
